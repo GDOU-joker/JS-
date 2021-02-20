@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#textwarrper{
+				display: none;
+			}
+			#waaa{
+				width: 500px;
+			}
+			body,html{
+				height: 100%;
+			}
+			#all{
+				width: 100%;
+				height: 100%;
+				background-color: blue;
+				display: none;
+				position: absolute;
+			}
+			
+
+		</style>
+	</head>
+	<body>
+		<div id = "all"></div>
+		<div id="textwarrper">
+		<span id="span1">我这个span可以一个字一个字出来</span>
+		<span>这个是span2</span>
+		<span>这个是span3</span>
+		<span>这个是span4</span>
+		<span>这个是span5</span>
+		<span>这个是span6</span>
+		<span>这个是span7</span>
+		</div>
+		<div id="waaa">
+		<span id="show"></span>
+		<br>
+		<button type="button" id="btn">auto</button>
+	</body>
+	<script type="text/javascript">
+		const btn = document.getElementById("btn");
+		const war = document.getElementById("textwarrper");
+		const all = document.getElementById("all");
+		const span = war.getElementsByTagName("span");
+		const show = document.getElementById("show");
+		let span_index=0;
+		let i = 0;
+		let j = 0;
+		let index = 0;
+		let timer2;
+		let timer3;
+		//定时器文字逐个显现功能，点击时直接显现所有的文字
+		// document.onclick = function(){
+		timer = setInterval(function(){
+			show.innerHTML = span[j].innerHTML.substring(0,i);
+			if(i<span[j].innerHTML.length){
+			i++;
+			}
+		},100);
+		document.onclick = function(){
+			if(timer2){
+				clearInterval(timer2);
+			}
+			//清除auto的定时器
+			if(index == 1){
+				index = 0;
+			}
+			
+			//判断文本是否完全显示，完全显示进入下一个文本，不完全显示就完全显示文本
+			if(show.innerHTML !=span[j].innerHTML){
+				show.innerHTML = span[j].innerHTML;
+				i=span[j].innerHTML.length;
+			}else if(show.innerHTML ==span[j].innerHTML && j<span.length-1){
+				j=j+1;
+				i=0;
+			}
+		}
+		//auto 自动播放功能
+		btn.onclick = function(event){
+			
+			clearInterval(timer2);
+			event = event || window.event;
+			event.cancelBubble = true;
+			//索引功能：索引为1时点击让索引为0，取消定时器
+			if(index ==1){
+				index=0;
+			}else{
+				index = 1;
+			}
+				timer2 = setInterval(function(){
+					if(show.innerHTML ==span[j].innerHTML && j<span.length && index ==1)
+					{
+
+						
+						j=j+1;
+						i=0;
+						if(j==span.length-1){
+							
+							clearInterval(timer2);
+						}
+
+					
+					}
+				},3000);
+		}
+		
+
+	</script>
+</html>
